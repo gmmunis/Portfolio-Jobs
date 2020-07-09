@@ -2,9 +2,19 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/index.scss';
 
-const MyApp = ({Component, pageProps}) => {
+import Navbar from '../components/shared/Navbar';
+import Hero from '../components/shared/Hero';
 
-  return <Component {...pageProps} />
+const MyApp = ({Component, pageProps}) => {
+  return(
+    <div className="portfolio-app">
+      <Navbar />
+      { Component.name === 'Home' && <Hero /> }
+      <div className="container">
+        <Component {...pageProps} />
+      </div>
+    </div>
+  )
 }
 
 export default MyApp;
