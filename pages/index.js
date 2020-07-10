@@ -5,7 +5,6 @@ import Footer from '../components/shared/Footer';
 const Home = () => (
   <>
     <Content />
-    <Footer />
   </>
 )
 

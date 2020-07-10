@@ -24,14 +24,6 @@
     "/_polyfills": [
       "static/runtime/polyfills.js"
     ],
-    "/forum/categories": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/forum/topics/[topic]": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
     "/index": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
