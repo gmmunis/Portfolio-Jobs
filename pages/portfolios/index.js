@@ -1,16 +1,31 @@
-const apiCall = () => {
-  return new Promise((res, rej) => {
-    setTimeout(() => {
-      res({ testingData: 'Just some testing Data' })
-    }, 200);
-  })
+import axios from 'axios';
+import PortfolioCard from '@/components/portfolios/PortfolioCard';
+import Link from 'next/link';
+
+const fetchPortfolios = () => {
+  const query = `
+  query portfolios {
+    portfolios {
+       _id, 
+       title, 
+       company, 
+       companyWebsite
+       location
+       jobTitle
+       description
+       startDate
+       endDate
+      }
+    }`;
+  return axios.post('http://localhost:3000/graphql', { query })
+    .then(({ data: graph }) => graph.data)
+    .then(data => data.portfolios)
 }
 
-const Portfolios = (props) => {
+const Portfolios = ({ portfolios }) => {
 
   return (
     <>
-    {props.testingData}
       <div className="container">
         <section className="section-title">
           <div className="px-2">
@@ -19,43 +34,21 @@ const Portfolios = (props) => {
             </div>
           </div>
         </section>
+
         <section className="pb-5">
           <div className="row">
-            <div className="col-md-4">
-              <div className="card subtle-shadow no-border">
-                <div className="card-body">
-                  <h5 className="card-title">Card title</h5>
-                  <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                  <p className="card-text fs-2">Algum exemplo de texto rápido para criar o título do card e compor a maior parte do conteúdo do card</p>
-                </div>
-                <div className="card-footer no-border">
-                  <small className="text-muted">Última atualização há 3 minutos</small>
-                </div>
+            {portfolios.map(portfolio =>
+              <div key={portfolio._id} className="col-md-4">
+                <Link href='/portfolios/[id]'
+                as={`/portfolios/${portfolio._id}`}>
+                <a className="card-link">
+                  <PortfolioCard portfolio={portfolio} />
+                </a>  
+                </Link>
               </div>
-            </div>
+            )
+            }
             <div className="col-md-4">
-              <div className="card subtle-shadow no-border">
-                <div className="card-body">
-                  <h5 className="card-title">Card title</h5>
-                  <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                  <p className="card-text fs-2 ">Algum exemplo de texto rápido para criar o título do card e compor a maior parte do conteúdo do card.</p>
-                </div>
-                <div className="card-footer no-border">
-                  <small className="text-muted">Última atualização há 3 minutos</small>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="card subtle-shadow no-border">
-                <div className="card-body">
-                  <h5 className="card-title">Card title</h5>
-                  <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                  <p className="card-text fs-2 ">Algum exemplo de texto rápido para criar o título do card e compor a maior parte do conteúdo do card.</p>
-                </div>
-                <div className="card-footer no-border">
-                  <small className="text-muted">Última atualização há 3 minutos</small>
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -65,9 +58,8 @@ const Portfolios = (props) => {
 }
 
 Portfolios.getInitialProps = async () => {
-  console.log('GET INITIAL PROPS PORTFOLIOS')
-  const data = await apiCall();
-  return { ...data };
+  const portfolios = await fetchPortfolios();
+  return { portfolios };
 }
 
 export default Portfolios;
