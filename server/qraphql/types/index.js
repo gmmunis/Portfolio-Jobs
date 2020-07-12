@@ -1,7 +1,5 @@
 
-exports.portfolioTypes = `
-type Porfolio {
-  _id: ID,
+const portfolioFields = `
   title: String,
   company: String,
   companyWebsite: String,
@@ -10,5 +8,14 @@ type Porfolio {
   description: String,
   startDate: String,
   endDate: String
+`
+exports.portfolioTypes = `
+type Portfolio {
+  _id: ID,
+  ${portfolioFields}
+}
+
+input PortfolioInput {
+  ${portfolioFields}
 }
 `

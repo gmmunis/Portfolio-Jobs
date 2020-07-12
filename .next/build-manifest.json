@@ -20,19 +20,7 @@
     "/_polyfills": [
       "static/runtime/polyfills.js"
     ],
-    "/cv": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/forum/categories": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
     "/portfolios": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/portfolios/[id]": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
