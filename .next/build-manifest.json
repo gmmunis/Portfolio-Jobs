@@ -20,15 +20,7 @@
     "/_polyfills": [
       "static/runtime/polyfills.js"
     ],
-    "/next/dist/pages/_error": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
     "/portfolios": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/portfolios/[id]": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

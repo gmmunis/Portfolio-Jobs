@@ -41,8 +41,8 @@ export const CREATE_PORTFOLIO = gql`
       location: "Nova localizacao"
       jobTitle: "Novo Job title"
       description: "Nova descricao"
-      startDate: "12/12/2020"
-      endDate: "30/08/2021"
+      startDate: "2020-12-12T23:59Z"
+      endDate: "2021-08-30T23:59Z"
     }) {
       _id, 
        title, 
@@ -65,8 +65,8 @@ export const UPDATE_PORTFOLIO = gql `
       location: "Update Nova localizacao"
       jobTitle: "Update Novo Job title"
       description: "Update Nova descricao"
-      startDate: "12/12/2020"
-      endDate: "30/08/2021"
+      startDate: "2020-12-12T23:59Z"
+      endDate: "2021-08-30T23:59Z"
     }) {
       _id, 
        title, 
