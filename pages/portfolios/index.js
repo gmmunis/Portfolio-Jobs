@@ -1,122 +1,21 @@
-import { useState } from 'react';
-import axios from 'axios';
+
 import PortfolioCard from '@/components/portfolios/PortfolioCard';
 import Link from 'next/link';
+import {
+  useGetPortfolios,
+  useUpdatePortfolio,
+  useDeletePortfolio,
+  useCreatePortfolio } from '@/apollo/actions';
+import withApollo from '@/hoc/withApollo';
+import { getDataFromTree } from '@apollo/react-ssr';
 
-const graphDeletePortfolio = (id) => {
-  const query = `
-  mutation DeletePortfolio {
-    deletePortfolio(id: "${id}")
-  }
-  `
-  return axios.post('http://localhost:3000/graphql', { query })
-    .then(({ data: graph }) => graph.data)
-    .then(data => data.deletePortfolio)
-}
+const Portfolios = () => {
+  const { data } = useGetPortfolios();
+  const [ updatePortfolio ] = useUpdatePortfolio();
+  const [ deletePortfolio ] = useDeletePortfolio();
+  const [createPortfolio] = useCreatePortfolio();
 
-const graphUpdatePortfolio = (id) => {
-  const query = `
-  mutation UpatePortfolio {
-    updatePortfolio(id: "${id}", input: {
-      title: "Update Job"
-      company: "Update Company"
-      companyWebsite: "Update Website"
-      location: "Update Nova localizacao"
-      jobTitle: "Update Novo Job title"
-      description: "Update Nova descricao"
-      startDate: "12/12/2020"
-      endDate: "30/08/2021"
-    }) {
-      _id, 
-       title, 
-       company, 
-       companyWebsite
-       location
-       jobTitle
-       description
-       startDate
-       endDate
-    }
-  }`;
-  return axios.post('http://localhost:3000/graphql', { query })
-    .then(({ data: graph }) => graph.data)
-    .then(data => data.updatePortfolio)
-}
-
-const graphCreatePortfolio = () => {
-  const query = `
-  mutation CreatePortfolio {
-    createPortfolio(input: {
-      title: "New Job"
-      company: "New Company"
-      companyWebsite: "New Website"
-      location: "Nova localizacao"
-      jobTitle: "Novo Job title"
-      description: "Nova descricao"
-      startDate: "12/12/2020"
-      endDate: "30/08/2021"
-    }) {
-      _id, 
-       title, 
-       company, 
-       companyWebsite
-       location
-       jobTitle
-       description
-       startDate
-       endDate
-    }
-  }`;
-  return axios.post('http://localhost:3000/graphql', { query })
-    .then(({ data: graph }) => graph.data)
-    .then(data => data.createPortfolio)
-}
-
-const fetchPortfolios = () => {
-  const query = `
-  query portfolios {
-    portfolios {
-       _id, 
-       title, 
-       company, 
-       companyWebsite
-       location
-       jobTitle
-       description
-       startDate
-       endDate
-      }
-    }`;
-  return axios.post('http://localhost:3000/graphql', { query })
-    .then(({ data: graph }) => graph.data)
-    .then(data => data.portfolios)
-}
-
-const Portfolios = ({ data }) => {
-  const [portfolios, setPortfolios] = useState(data.portfolios);
-
-  const createPortfolio = async () => {
-    const newPortfolio = await graphCreatePortfolio();
-    const newPortfolios = [...portfolios, newPortfolio];
-    setPortfolios(newPortfolios);
-  }
-
-  const updatePortfolio = async (id) => {
-    const updatedPortfolio = await graphUpdatePortfolio(id);
-    const index = portfolios.findIndex(p => p._id === id);
-    const newPortfolios = portfolios.slice();
-    newPortfolios[index] = updatedPortfolio;
-    setPortfolios(newPortfolios);
-  }
-
-  const deletePortfolio = async (id) => {
-    const deletedId = await graphDeletePortfolio(id);
-    const index = portfolios.findIndex(p => p._id === deletedId);
-    const newPortfolios = portfolios.slice();
-    newPortfolios.splice(index, 1);
-    setPortfolios(newPortfolios);
-  }
-
+  const portfolios = data && data.portfolios || [];
   return (
     <>
       <div className="container">
@@ -140,10 +39,10 @@ const Portfolios = ({ data }) => {
                   </a>
                 </Link>
                 <button className="btn btn-warning"
-                  onClick={() => updatePortfolio(portfolio._id)}>Update Portfolio
+                  onClick={() => updatePortfolio({ variables: { id: portfolio._id } })}>Update Portfolio
                   </button>
-                  <button className="btn btn-danger" 
-                  onClick={() => deletePortfolio(portfolio._id)}>Delete Portfolio
+                <button className="btn btn-danger"
+                  onClick={() => deletePortfolio({ variables: { id: portfolio._id } })}>Delete Portfolio
                   </button>
               </div>
             )
@@ -157,9 +56,4 @@ const Portfolios = ({ data }) => {
   )
 }
 
-Portfolios.getInitialProps = async () => {
-  const portfolios = await fetchPortfolios();
-  return { data: { portfolios } };
-}
-
-export default Portfolios;
+export default withApollo(Portfolios, { getDataFromTree });
