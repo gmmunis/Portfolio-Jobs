@@ -1,4 +1,4 @@
-const Portfolio = require('../../database/models/portfolio');
+
 
 exports.portfolioQueries = {
   portfolio: (root, {id}, ctx) => {
@@ -11,7 +11,7 @@ exports.portfolioQueries = {
 
 exports.portfolioMutations = {
   createPortfolio: async (root, { input }, ctx) => {
-    const createPortfolio = await Portfolio.create(input);
+    const createPortfolio = await ctx.models.Portfolio.create(input);
     return createPortfolio;
   },
 
@@ -22,5 +22,19 @@ exports.portfolioMutations = {
   deletePortfolio: async (root, {id}, ctx) => {
     const deletedPortfolio = await ctx.models.Portfolio.findAndDelete(id);
     return deletedPortfolio._id;
+  }
+}
+
+exports.userMutations = {
+  signIn: (root, args, ctx) => {
+    return ctx.models.User.signIn();
+  },
+
+  signUp: (root, args, ctx) => {
+    return ctx.models.User.signUp();
+  },
+
+  signOut: (root, args, ctx) => {
+    return ctx.models.User.signOut();
   }
 }
