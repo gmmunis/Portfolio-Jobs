@@ -1,16 +1,19 @@
-const express = require('express')
-const next = require('next')
+const express = require('express');
+const next = require('next');
 
-const port = parseInt(process.env.PORT, 10) || 3000
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
-const handle = app.getRequestHandler()
+const port = parseInt(process.env.PORT, 10) || 3000;
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handle = app.getRequestHandler();
 
 //connect to DB
-require('./database').connect();
+const db = require('./database')
+db.connect();
 
 app.prepare().then(() => {
   const server = express()
+
+  require('./middlewares').init(server, db);
 
   const apolloServer = require('./qraphql').createAplloServer();
   apolloServer.applyMiddleware({app: server})

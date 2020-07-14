@@ -4,6 +4,7 @@ const { ApolloServer, gql } = require('apollo-server-express');
 
 const { portfolioQueries, portfolioMutations, userMutations} = require('./resolvers/index');
 const { portfolioTypes, userTypes } = require('./types/index');
+const { buildAuthContext } = require('./context/index');
 
 const Portfolio = require('./models/Portfolio');
 const User = require('./models/User');
@@ -26,7 +27,7 @@ exports.createAplloServer = () => {
         deletePortfolio(id: ID): ID
 
         signUp(input: SignUpInput): String
-        signIn: String
+        signIn(input: SignInInput): String
         signOut: String
       }`);
 
@@ -44,6 +45,7 @@ exports.createAplloServer = () => {
   const apolloServer = new ApolloServer({
     typeDefs, resolvers,
     context: () => ({
+      ...buildAuthContext(),
       models: {
         Portfolio: new Portfolio(mongoose.model('Portfolio')),
         User: new User(mongoose.model('User'))
