@@ -1,22 +1,37 @@
 const passport = require('passport');
 
-const authenticateUser = (options) => {
-  console.log("Calling authenticateUser");
+// options == {email, password}
+const authenticateUser = (req, options) => {
+  return new Promise((resolve, reject) => {
+    const done = (error, user) => {
 
-  const done = () => {
-    console.log('Calling done of authenticateUser');
-  }
+      if (error) {
+        return reject(new Error(error));
+      }
 
-  const authFn = passport.authenticate('graphql', options, done);
-  authFn();
+      if (user) {
+        req.login(user, (error) => {
+          if (error) { return reject(new Error(error)); }
+          return resolve(user);
+        })
+      } else {
+        return reject(new Error('Invalid password or email!'));
+      }
+    }
 
-  return true;
+    const authFn = passport.authenticate('graphql', options, done);
+    authFn();
+  })
 }
 
-exports.buildAuthContext = () => {
+
+
+exports.buildAuthContext = (req) => {
   const auth = {
-    authenticate: (options) => authenticateUser(options)
-    
+    authenticate: (options) => authenticateUser(req, options),
+    logout: () => req.logout(),
+    isAuthenticated: () => req.isAuthenticated(),
+    getUser: () => req.user
   }
 
   return auth;

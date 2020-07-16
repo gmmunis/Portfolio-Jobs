@@ -1,3 +1,5 @@
+
+
 const config = require('../config/dev');
 const session = require('express-session');
 const passport = require('passport');
@@ -11,9 +13,11 @@ exports.init = (server, db) => {
     secret: config.SESSION_SECRET,
     cookie: { maxAge: 2 * 60 * 60 * 1000 },
     resave: false,
-    saveUnitialized: false,
+    saveUninitialized: false,
     store: db.initSessionStore()
   }
 
   server.use(session(sess));
+  server.use(passport.initialize());
+  server.use(passport.session());
 }

@@ -6,7 +6,7 @@ const userSchema = new Schema({
   avatar: String,
   email: {
     type: String,
-    required: 'Email é obrigatório!',
+    required: 'Email is required!',
     lowercase: true,
     index: true,
     unique: true,
@@ -14,17 +14,17 @@ const userSchema = new Schema({
   },
   name: {
     type: String,
-    minlength: [6, 'Nome deve conter no mínimo 6 caracteres!']
+    minlength: [6, 'Minimum name length is 6 characters!']
   },
   username: {
     type: String,
     required: true,
-    minlength: [6, 'Nome do usuário deve conter no mínimo 6 caracteres!']
+    minlength: [6, 'Minimum username length is 6 characters!']
   },
   password: {
     type: String,
-    minlength: [6, 'Senha deve conter no mínimo 6 caracteres!'],
-    maxlength: [32, 'Senha deve conter no máximo 6 caracteres!'],
+    minlength: [6, 'Minimum password length is 6 characters!'],
+    maxlength: [32, 'Maximum password length is 32 characters!'],
     required: true
   },
   role: {
@@ -41,15 +41,23 @@ userSchema.pre('save', function (next) {
   const user = this;
 
   bcrypt.genSalt(10, function (err, salt) {
-    if(err) { return next(err) }
+    if (err) { return next(err) }
 
     bcrypt.hash(user.password, salt, function (err, hash) {
-      if(err) { return next(err) }
-      
+      if (err) { return next(err) }
+
       user.password = hash;
       next();
     });
   });
 })
+
+userSchema.methods.validatePassword = function (candidatePassword, done) {
+  bcrypt.compare(candidatePassword, this.password, function (error, isSuccess) {
+    if (error) { return done(error); }
+
+    return done(null, isSuccess);
+  })
+}
 
 module.exports = mongoose.model('User', userSchema);

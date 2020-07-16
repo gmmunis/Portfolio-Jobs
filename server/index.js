@@ -15,7 +15,7 @@ app.prepare().then(() => {
 
   require('./middlewares').init(server, db);
 
-  const apolloServer = require('./qraphql').createAplloServer();
+  const apolloServer = require('./qraphql').createApolloServer();
   apolloServer.applyMiddleware({app: server})
 
   server.all('*', (req, res) => {
