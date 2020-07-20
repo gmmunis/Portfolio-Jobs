@@ -5,6 +5,14 @@ class User {
     this.Model = model;
   }
 
+  getAuthUser(ctx) {
+    if (ctx.isAuthenticated()) {
+      return ctx.getUser();
+    }
+
+    return null;
+  }
+
   async signUp(signUpData) {
     if (signUpData.password !== signUpData.passwordConfirmation) {
       throw new Error('A senha deve ser igual à senha de confirmação!');
@@ -14,7 +22,7 @@ class User {
       return await this.Model.create(signUpData);
     } catch (e) {
       if (e.code && e.code === 11000) {
-        throw new Error('O usuário com o email fornecido já existe!');
+        throw new Error('O usuário com email fornecido já existe!');
       }
 
       throw e;
