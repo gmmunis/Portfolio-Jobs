@@ -17,7 +17,7 @@ query Portfolio($id: ID) {
   }
 `
 
-export const GET_PORTFOLIOS = gql `
+export const GET_PORTFOLIOS = gql`
   query portfolios {
     portfolios {
        _id, 
@@ -33,16 +33,25 @@ export const GET_PORTFOLIOS = gql `
     }`;
 
 export const CREATE_PORTFOLIO = gql`
-  mutation CreatePortfolio {
+    mutation CreatePortfolio(
+      $title: String
+      $company: String
+      $companyWebsite: String
+      $location: String 
+      $jobTitle: String 
+      $description: String 
+      $startDate: String 
+      $endDate: String 
+  ) {
     createPortfolio(input: {
-      title: "New Job"
-      company: "New Company"
-      companyWebsite: "New Website"
-      location: "Nova localizacao"
-      jobTitle: "Novo Job title"
-      description: "Nova descricao"
-      startDate: "2020-12-12T23:59Z"
-      endDate: "2021-08-30T23:59Z"
+      title: $title
+      company: $company
+      companyWebsite: $companyWebsite
+      location: $location
+      jobTitle: $jobTitle
+      description: $description
+      startDate: $startDate
+      endDate: $endDate
     }) {
       _id, 
        title, 
@@ -56,7 +65,7 @@ export const CREATE_PORTFOLIO = gql`
     }
   }`;
 
-export const UPDATE_PORTFOLIO = gql `
+export const UPDATE_PORTFOLIO = gql`
   mutation UpatePortfolio($id: ID) {
     updatePortfolio(id: $id, input: {
       title: "Update Job"
@@ -80,7 +89,7 @@ export const UPDATE_PORTFOLIO = gql `
     }
   }`;
 
-  export const DELETE_PORTFOLIO = gql `
+export const DELETE_PORTFOLIO = gql`
   mutation DeletePortfolio($id: ID) {
     deletePortfolio(id: $id)
   }
@@ -125,7 +134,7 @@ export const SIGN_IN = gql`
 
 export const SIGN_OUT = gql`mutation SignOut { signOut }`
 
-export const GET_USER = gql `
+export const GET_USER = gql`
   query User {
     user {
       _id

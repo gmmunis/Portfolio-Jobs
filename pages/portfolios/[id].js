@@ -3,12 +3,14 @@ import { useQuery } from '@apollo/react-hooks';
 import { GET_PORTFOLIO } from '@/apollo/queries';
 import withApollo from '@/hoc/withApollo';
 import { getDataFromTree } from '@apollo/react-ssr';
+import BaseLayout from '@/layouts/BaseLayout';
 
 const PortFoliodetail = ({query}) => {
   const {data} = useQuery(GET_PORTFOLIO, {variables: {id: query.id}});
   const portfolio = data && data.portfolio || {};
 
   return (
+    <BaseLayout>
     <div className="portfolio-detail">
       <div className="container">
 
@@ -46,6 +48,7 @@ const PortFoliodetail = ({query}) => {
         </div>
       </div>
     </div>
+    </BaseLayout>
   )
 }
 

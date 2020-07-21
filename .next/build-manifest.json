@@ -28,7 +28,15 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/login": [
+    "/portfolios": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/portfolios/[id]": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/portfolios/new": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
