@@ -14,6 +14,10 @@ class Portfolio {
     return this.Model.find({});
   }
 
+  getAllByUser() {
+    return this.Model.find({user: this.user._id}).sort({startDate: 'desc'});
+  }
+
   getById(id) {
     return this.Model.findById(id);
   }
@@ -28,7 +32,7 @@ class Portfolio {
   }
 
   findAndUpdate(id, data) {
-    return this.Model.findOneAndUpdate({ _id: id }, data, { new: true });
+    return this.Model.findOneAndUpdate({ _id: id }, data, { new: true, runValidators: true});
   }
 
   findAndDelete(id) {
