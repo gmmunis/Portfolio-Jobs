@@ -18,7 +18,7 @@ const Secret = withAuth(() => {
       </div>
     </BaseLayout>
   )
-}, ['instrutor'])
+}, ['instrutor', 'admin'])
 
 
 
