@@ -8,7 +8,9 @@ import {
   DELETE_PORTFOLIO,
   SIGN_IN,
   SIGN_OUT,
-  GET_USER
+  GET_USER,
+  FORUM_CATEGORIES,
+  TOPICS_BY_CATEGORY
 } from '@/apollo/queries'
 
 
@@ -54,3 +56,12 @@ export const useGetUser = () => useQuery(GET_USER)
 
 
 // Auth actions end -----------------------
+
+// forum actions start --------------------
+
+export const useGetForumCategories = () => useQuery(FORUM_CATEGORIES)
+export const useGetTopicsByCategory = (options) => useQuery(TOPICS_BY_CATEGORY, options)
+
+
+// forum actions end-----------------------
+

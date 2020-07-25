@@ -169,3 +169,37 @@ export const GET_USER = gql`
 
 
 // AUTH QUERIES END ----------------------------
+
+// forum queries start -------------------------
+
+export const FORUM_CATEGORIES = gql`
+  query ForumCategories {
+    forumCategories {
+      slug
+      title
+      subTitle
+    }
+  }
+`
+
+export const TOPICS_BY_CATEGORY = gql `
+  query TopicsByCategory($category: String) {
+    topicsByCategory(category: $category) {
+      _id
+      slug
+      title
+      content
+      user {
+        username
+        avatar
+      }
+      forumCategory {
+        _id
+        title
+        slug
+      }
+    }
+  }
+`
+
+// forum queries end ---------------------------
