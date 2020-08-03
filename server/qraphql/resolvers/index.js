@@ -1,5 +1,3 @@
-
-
 exports.portfolioQueries = {
   portfolio: (root, { id }, ctx) => {
     return ctx.models.Portfolio.getById(id);
@@ -53,13 +51,19 @@ exports.forumQueries = {
   topicsByCategory: async (root, { category }, ctx) => {
     const forumCategory = await ctx.models.ForumCategory.getBySlug(category);
     if (!forumCategory) { return null; }
-      return ctx.models.Topic.getAllByCategory(forumCategory._id);
-    }
-  }
 
-  exports.forumMutations = {
-    createTopic: async (root, { input }, ctx) => {
-      const topic = await ctx.models.Topic.create(input);
-      return topic;
-    }
+    return ctx.models.Topic.getAllByCategory(forumCategory._id);
+  },
+  topicBySlug: (root, { slug }, ctx) => {
+    return ctx.models.Topic.getBySlug(slug);
   }
+}
+
+exports.forumMutations = {
+  createTopic: async (root, { input }, ctx) => {
+    const category = await ctx.models.ForumCategory.getBySlug(input.forumCategory);
+    input.forumCategory = category._id;
+    const topic = await ctx.models.Topic.create(input);
+    return topic;
+  }
+}

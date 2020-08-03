@@ -77,7 +77,7 @@ export const CREATE_PORTFOLIO = gql`
     }
   }`;
 
-  export const UPDATE_PORTFOLIO = gql`
+export const UPDATE_PORTFOLIO = gql`
   mutation UpdatePortfolio(
     $id: ID
     $title: String
@@ -170,7 +170,9 @@ export const GET_USER = gql`
 
 // AUTH QUERIES END ----------------------------
 
-// forum queries start -------------------------
+
+
+// FORUM QUERIES START ---------------------------
 
 export const FORUM_CATEGORIES = gql`
   query ForumCategories {
@@ -182,24 +184,54 @@ export const FORUM_CATEGORIES = gql`
   }
 `
 
-export const TOPICS_BY_CATEGORY = gql `
+
+const topicResponse = `
+  _id
+  slug
+  title
+  content
+  user {
+    username
+    avatar
+  }
+  forumCategory {
+    _id
+    title
+    slug
+  }
+`
+
+export const TOPICS_BY_CATEGORY = gql`
   query TopicsByCategory($category: String) {
     topicsByCategory(category: $category) {
-      _id
-      slug
-      title
-      content
-      user {
-        username
-        avatar
-      }
-      forumCategory {
-        _id
-        title
-        slug
-      }
+      ${topicResponse}
     }
   }
 `
 
-// forum queries end ---------------------------
+export const TOPIC_BY_SLUG = gql`
+  query TopicBySlug($slug: String) {
+    topicBySlug(slug: $slug) {
+      ${topicResponse}
+    }
+  }
+`
+
+export const CREATE_TOPIC = gql`
+  mutation CreateTopic(
+    $title: String
+    $content: String
+    $forumCategory: String
+  ) {
+    createTopic(input:{
+      title: $title,
+      content: $content
+      forumCategory: $forumCategory
+    }){
+      ${topicResponse}
+    }
+  }
+`
+
+
+// FORUM QUERIES END ---------------------------

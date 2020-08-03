@@ -15,33 +15,26 @@ const User = require('./models/User');
 const ForumCategory = require('./models/ForumCategory');
 const Topic = require('./models/Topic');
 
-
 exports.createApolloServer = () => {
   // Construct a schema, using GRAPHQL schema language
   const typeDefs = gql(`
   ${portfolioTypes}
   ${userTypes}
   ${forumTypes}
-
   type Query {
     portfolio(id: ID): Portfolio
     portfolios: [Portfolio]
     userPortfolios: [Portfolio]
-
     user: User
-
     forumCategories: [ForumCategory]
-
     topicsByCategory(category: String): [Topic]
+    topicBySlug(slug: String): Topic
   }
-
   type Mutation {
     createPortfolio(input: PortfolioInput): Portfolio
     updatePortfolio(id: ID, input: PortfolioInput): Portfolio
     deletePortfolio(id: ID): ID
-
     createTopic(input: TopicInput): Topic
-
     signUp(input: SignUpInput): String
     signIn(input: SignInInput): User
     signOut: Boolean

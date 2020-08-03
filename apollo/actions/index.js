@@ -10,7 +10,9 @@ import {
   SIGN_OUT,
   GET_USER,
   FORUM_CATEGORIES,
-  TOPICS_BY_CATEGORY
+  TOPICS_BY_CATEGORY,
+  CREATE_TOPIC,
+  TOPIC_BY_SLUG
 } from '@/apollo/queries'
 
 
@@ -57,11 +59,29 @@ export const useGetUser = () => useQuery(GET_USER)
 
 // Auth actions end -----------------------
 
-// forum actions start --------------------
-
+// Forum actions Start -----------------------
 export const useGetForumCategories = () => useQuery(FORUM_CATEGORIES)
+
 export const useGetTopicsByCategory = (options) => useQuery(TOPICS_BY_CATEGORY, options)
+export const useGetTopicBySlug = options => useQuery(TOPIC_BY_SLUG, options)
 
+export const useCreateTopic = () => useMutation(CREATE_TOPIC, {
+  update(cache, { data: { createTopic } }) {
+    try {
+      const { topicsByCategory } = cache.readQuery({
+        query: TOPICS_BY_CATEGORY, variables: {
+          category: createTopic.forumCategory.slug
+        }
+      });
+      cache.writeQuery({
+        query: TOPICS_BY_CATEGORY,
+        data: { topicsByCategory: [...topicsByCategory, createTopic] },
+        variables: {
+          category: createTopic.forumCategory.slug
+        }
+      });
+    } catch (e) { }
+  }
+})
 
-// forum actions end-----------------------
-
+// Forum actions End -----------------------
