@@ -26,7 +26,7 @@ const data = {
   users: [
     {
       _id: user1Id,
-      avatar: "https://i.ya-webdesign.com/images/avatar-png-1.png",
+      avatar: "https://cdn.icon-icons.com/icons2/1736/PNG/512/4043260-avatar-male-man-portrait_113269.png",
       email: "gmmunis@hotmail.com",
       name: "Guilherme M.Munis",
       username: "Gmmunis",
@@ -36,7 +36,7 @@ const data = {
     },
     {
       _id: user2Id,
-      avatar: "https://i.ya-webdesign.com/images/avatar-png-1.png",
+      avatar: "https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png",
       email: "test@hotmail.com",
       name: "TestUser",
       username: "testUserName",

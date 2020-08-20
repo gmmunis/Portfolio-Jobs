@@ -12,7 +12,8 @@ import {
   FORUM_CATEGORIES,
   TOPICS_BY_CATEGORY,
   CREATE_TOPIC,
-  TOPIC_BY_SLUG
+  TOPIC_BY_SLUG,
+  POSTS_BY_TOPIC
 } from '@/apollo/queries'
 
 
@@ -83,5 +84,7 @@ export const useCreateTopic = () => useMutation(CREATE_TOPIC, {
     } catch (e) { }
   }
 })
+
+export const useGetPostsByTopic = options => useQuery(POSTS_BY_TOPIC, options);
 
 // Forum actions End -----------------------
