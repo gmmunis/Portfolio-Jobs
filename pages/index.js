@@ -70,7 +70,7 @@ const Home = () => (
           <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
           <div className="avatar-container my-2">
             <img src="https://via.placeholder.com/150" className="avatar-image mr-2"></img>
-            <span className="avatar-title">Filip Jerga</span>
+            <span className="avatar-title">Guilherme Munis</span>
           </div>
         </a>
         <a href="#" className="list-group-item list-group-item-action flex-column align-items-start mt-3 py-3 subtle-shadow no-border">
@@ -81,7 +81,7 @@ const Home = () => (
           <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
           <div className="avatar-container my-2">
             <img src="https://via.placeholder.com/150" className="avatar-image mr-2"></img>
-            <span className="avatar-title">Filip Jerga</span>
+            <span className="avatar-title">Guilherme Munis</span>
           </div>
         </a>
         <a href="#" className="list-group-item list-group-item-action flex-column align-items-start mt-3 py-3 subtle-shadow no-border">
@@ -92,7 +92,7 @@ const Home = () => (
           <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
           <div className="avatar-container my-2">
             <img src="https://via.placeholder.com/150" className="avatar-image mr-2"></img>
-            <span className="avatar-title">Filip Jerga</span>
+            <span className="avatar-title">Guilherme Munis</span>
           </div>
         </a>
       </div>
