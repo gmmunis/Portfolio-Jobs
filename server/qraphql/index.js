@@ -22,31 +22,22 @@ exports.createApolloServer = () => {
   ${portfolioTypes}
   ${userTypes}
   ${forumTypes}
-
   type Query {
     portfolio(id: ID): Portfolio
     portfolios: [Portfolio]
     userPortfolios: [Portfolio]
-
     user: User
-
     forumCategories: [ForumCategory]
-
     topicsByCategory(category: String): [Topic]
     topicBySlug(slug: String): Topic
-
-    postsByTopic(slug: String): [Post]
+    postsByTopic(slug: String): PagPosts
   }
-
   type Mutation {
     createPortfolio(input: PortfolioInput): Portfolio
     updatePortfolio(id: ID, input: PortfolioInput): Portfolio
     deletePortfolio(id: ID): ID
-
     createTopic(input: TopicInput): Topic
-
     createPost(input: PostInput): Post
-
     signUp(input: SignUpInput): String
     signIn(input: SignInInput): User
     signOut: Boolean

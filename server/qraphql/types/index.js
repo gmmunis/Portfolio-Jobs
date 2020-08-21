@@ -1,4 +1,3 @@
-
 const portfolioFields = `
   title: String,
   company: String,
@@ -9,17 +8,16 @@ const portfolioFields = `
   startDate: String,
   endDate: String
 `
+
 exports.portfolioTypes = `
-type Portfolio {
-  _id: ID,
-  ${portfolioFields}
-}
-
-input PortfolioInput {
-  ${portfolioFields}
-}
+  type Portfolio {
+    _id: ID,
+    ${portfolioFields}
+  }
+  input PortfolioInput {
+    ${portfolioFields}
+  }
 `
-
 exports.userTypes = `
   type User {
     _id: ID,
@@ -29,7 +27,6 @@ exports.userTypes = `
     email: String
     role: String
   }
-  
   input SignUpInput {
     avatar: String
     username: String!
@@ -38,7 +35,6 @@ exports.userTypes = `
     password: String!
     passwordConfirmation: String!
   }
-
   input SignInInput {
     email: String!
     password: String!
@@ -52,12 +48,10 @@ exports.forumTypes = `
     subTitle: String
     slug: String
   }
-
   type Author {
     avatar: String
     username: String
   }
-
   type Topic {
     _id: ID
     slug: String
@@ -67,13 +61,11 @@ exports.forumTypes = `
     user: Author
     createdAt: String
   }
-
   input TopicInput {
     title: String
     content: String
     forumCategory: String
   }
-
   type Post {
     _id: ID
     content: String
@@ -84,7 +76,10 @@ exports.forumTypes = `
     parent: Post
     createdAt: String
   }
-
+  type PagPosts {
+    posts: [Post]
+    count: Int
+  }
   input PostInput {
     content: String
     parent: String

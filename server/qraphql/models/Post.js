@@ -1,4 +1,3 @@
-
 const uniqueSlug = require('unique-slug');
 const moment = require('moment');
 
@@ -9,18 +8,21 @@ class Post {
     this.user = user;
   }
 
-  getAllByTopic(topic) {
-    return this.Model
-    .find({topic})
-    .sort('createdAt')
-    .populate('topic')
-    .populate('user')
-    .populate({path: 'parent', populate: 'user'})
+  async getAllByTopic(topic) {
+    const count = await this.Model.countDocuments({ topic });
+    const posts = await this.Model
+      .find({ topic })
+      .sort('createdAt')
+      .populate('topic')
+      .populate('user')
+      .populate({ path: 'parent', populate: 'user' })
+
+    return { posts, count };
   }
 
   async create(post) {
     if (!this.user) {
-      throw new Error('Você precisa estar logado para criar um post!');
+      throw new Error('You must be signed in to create a post!');
     }
 
     post.user = this.user;
@@ -40,11 +42,12 @@ class Post {
 
     const createdPost = await this.Model.create(post);
     return this.Model
-    .findById(createdPost._id)
-    .populate('topic')
-    .populate('user')
-    .populate({path:'parent', populate: 'user'})
+      .findById(createdPost._id)
+      .populate('topic')
+      .populate('user')
+      .populate({ path: 'parent', populate: 'user' })
   }
+
 }
 
 module.exports = Post;
