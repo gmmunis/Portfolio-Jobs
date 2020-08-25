@@ -20,6 +20,10 @@
     "/_polyfills": [
       "static/runtime/polyfills.js"
     ],
+    "/forum/categories/[slug]": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/forum/topics/[slug]": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
