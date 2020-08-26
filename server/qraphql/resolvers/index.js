@@ -1,3 +1,14 @@
+exports.mixedQueries = {
+  highlight: async (root, { limit = 3 }, ctx) => {
+    const portfolios = await ctx.models.Portfolio.getRandoms(limit);
+    const topics = await ctx.models.Topic.getRandoms(limit);
+    return {
+      portfolios,
+      topics
+    }
+  }
+}
+
 exports.portfolioQueries = {
   portfolio: (root, { id }, ctx) => {
     return ctx.models.Portfolio.getById(id);
@@ -57,9 +68,9 @@ exports.forumQueries = {
   topicBySlug: (root, { slug }, ctx) => {
     return ctx.models.Topic.getBySlug(slug);
   },
-  postsByTopic: async(root, { slug, ...pagination }, ctx) => {
+  postsByTopic: async (root, { slug, ...pagination }, ctx) => {
     const topic = await ctx.models.Topic.getBySlug(slug);
-    return ctx.models.Post.getAllByTopic({topic, ...pagination});
+    return ctx.models.Post.getAllByTopic({ topic, ...pagination });
   }
 }
 
