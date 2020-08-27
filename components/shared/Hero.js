@@ -7,7 +7,7 @@ const Hero = () =>
         <h1 className="white hero-title">Olá eu sou o Guilherme M.Munis. Full Stack Developer</h1>
         <h2 className="white hero-subtitle">Confira meu portfolio</h2>
         <div className="button-container">
-          <a href="" className="btn btn-main bg-blue ttu">Dê uma olhada no meu trabalho</a>
+          <a href="https://github.com/gmmunis" className="btn btn-main bg-blue ttu">Dê uma olhada no meu trabalho</a>
         </div>
       </div>
       <div className="hero-right col-md-6">
