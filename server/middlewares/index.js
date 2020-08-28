@@ -1,6 +1,6 @@
 
 
-const config = require('../config');
+const config = require('../config'); 
 const session = require('express-session');
 const passport = require('passport');
 
@@ -30,4 +30,4 @@ exports.init = (server, db) => {
   server.use(passport.session());
 }
 
-// .gmm.herokuapp.com
+// .gmm.herokuapp.com 

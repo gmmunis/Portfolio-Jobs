@@ -1,7 +1,7 @@
-const express = require ('express');
+
 const mongoose = require('mongoose');
 const config = require('../config');
-const fakeDb = require('./FakeDb');
+const fakeDb = require('./fakeDb');
 
 mongoose.connect(config.DB_URI, {
   useNewUrlParser: true,

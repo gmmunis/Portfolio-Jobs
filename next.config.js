@@ -10,4 +10,4 @@ module.exports = {
   env: {
     BASE_URL: dev ? 'http://localhost:3000/graphql' : 'https://gmm.herokuapp.com/graphql'
   }
-}
+} 
