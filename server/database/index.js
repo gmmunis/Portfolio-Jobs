@@ -11,9 +11,6 @@ require('./models/forumCategory');
 require('./models/topic');
 require('./models/post');
 
-
-
-
 exports.connect = () => {
   mongoose.connect(config.DB_URI, {
     useNewUrlParser: true,
